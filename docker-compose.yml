@@ -1,0 +1,20 @@
+version: '3.8'
+ 
+services:
+ fcm_server:
+    build: .
+    container_name: a_plus_tsukuba-fcm
+    ports:
+      - 8001:8001
+    command: python manage.py runserver 0.0.0.0:8001
+    # プログラムフォルダをボリューム指定する
+    ## .envファイルなどを考慮して、以下のフォルダのみを対象にする。
+    volumes:
+      - ./fcm_server:/aplus_mobile_fcm_server/fcm_server
+      - ./app:/aplus_mobile_fcm_server/app
+    networks:
+      - default
+      - aplus-network
+networks:
+  aplus-network:
+    external: true
