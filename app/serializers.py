@@ -5,7 +5,7 @@ from fcm_django.models import FCMDevice
 class SubscriptionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Subscription
-        fields = '__all__'
+        fields = ["threads"]
 
 class FCMDeviceSerializer(serializers.ModelSerializer):
     class Meta:
