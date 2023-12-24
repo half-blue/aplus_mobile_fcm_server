@@ -25,3 +25,7 @@ A+つくばの本体のdockerを起動し後に，`docker compose up -d`で起�
 `api/<thread_id>/subscribe`で登録する．デバイスレコードや購読情報レコードが未作成の場合は新規作成される．
 
 A+つくばに存在しないスレッドIDも登録できるので注意
+
+### 通知を送信する
+```python manage.py notice スレッドID```
+で更新通知を送ります．
