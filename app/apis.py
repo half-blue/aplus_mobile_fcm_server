@@ -2,10 +2,9 @@ from rest_framework.generics import ListAPIView, ListCreateAPIView
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.exceptions import NotFound
-from .serializers import *
 from  .models import *
 
-class GetSubscription(ListAPIView):
+class GetSubscription(APIView):
     """
     購読情報を取得する．
     セキュリティのためFCMトークンはheaderのX-HALFBLUE-FCM-TOKENに含めること．
@@ -13,17 +12,18 @@ class GetSubscription(ListAPIView):
     HTTP headers:
         X-HALFBLUE-FCM-TOKEN (str): FCMトークン
     """
-    serializer_class = SubscriptionSerializer
     
-    def get_queryset(self):
-        fcm_token = self.request.headers.get('X-HALFBLUE-FCM-TOKEN')
-        queryset = Subscription.objects.filter(device__registration_id = fcm_token)
-        if queryset:
-            return queryset
-        else:   
+    def get(self, request):
+        fcm_token = request.headers.get('X-HALFBLUE-FCM-TOKEN')
+        try:
+            subscription = Subscription.objects.get(device__registration_id = fcm_token)
+        except Subscription.DoesNotExist:
             raise NotFound()
+        threads = subscription.threads.all()
+        thread_ids = [thread.thread_id for thread in threads]
+        return Response(status=200, data={"threads": thread_ids})
 
-class GetDevice(ListAPIView):
+class GetDevice(APIView):
     """
     デバイス情報を取得する．
     セキュリティのためFCMトークンはheaderのX-HALFBLUE-FCM-TOKENに含めること．
@@ -31,15 +31,19 @@ class GetDevice(ListAPIView):
     HTTP headers:
         X-HALFBLUE-FCM-TOKEN (str): FCMトークン
     """
-    serializer_class = FCMDeviceSerializer
     
-    def get_queryset(self):
-        fcm_token = self.request.headers.get('X-HALFBLUE-FCM-TOKEN')
-        queryset = FCMDevice.objects.filter(registration_id = fcm_token)
-        if queryset:
-            return queryset
-        else:
+    def get(self, request):
+        fcm_token = request.headers.get('X-HALFBLUE-FCM-TOKEN')
+        try:
+            device = FCMDevice.objects.get(registration_id = fcm_token)
+        except FCMDevice.DoesNotExist:
             raise NotFound()
+        data = {        
+            "active": device.active,
+            "device_type": device.type,
+        }
+        return Response(status=200, data=data)
+
 
 class ActivateDevice(APIView):
     def patch(self, request):

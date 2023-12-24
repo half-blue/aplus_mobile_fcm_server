@@ -10,6 +10,9 @@ A+つくばの本体のdockerを起動し後に，`docker compose up -d`で起�
 
 初回実行時は，`docker exec -it a_plus_tsukuba-fcm bash`で中に入り，`python manage.py migrate`等が必要です．
 
+ - `CREATE DATABASE vhoi5_aplus_mobile_fcm_server`が必要な場合があります
+ - データベースやテーブルの文字コードは`utf8`にしてください．`utf8mb4`にすると動かなくなります．
+
 ## APIs
 ### アプリ起動時などに確認するもの
 
