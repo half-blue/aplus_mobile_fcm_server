@@ -10,6 +10,7 @@ ENV PYTHONUNBUFFERED 1
 # MySQL Connector
 RUN apt-get update
 RUN apt-get -y install default-mysql-client
+RUN apt-get -y install cron
 
 RUN mkdir /aplus_mobile_fcm_server
 
@@ -38,6 +39,10 @@ COPY ./firebaseServiceAccountKey.json ./firebaseServiceAccountKey.json
 # Copy files
 COPY ./manage.py ./
 COPY ./pytest.ini ./
+
+# Copy batch files
+COPY ./batch_check_update.py ./batch_check_update.py
+COPY ./batch_config_local.yaml ./batch_config.yaml
 
 # NOTICE
 # ./fcm_server and ./app are synchronized by volume configs in docker-compose.yml

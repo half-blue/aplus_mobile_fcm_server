@@ -1,6 +1,9 @@
 # firebase service account key
 firebaseServiceAccountKey.json
 
+# timestamp
+timestamp.txt
+
 # Created by https://www.toptal.com/developers/gitignore/api/windows,macos,visualstudiocode,python,django
 # Edit at https://www.toptal.com/developers/gitignore?templates=windows,macos,visualstudiocode,python,django
 
