@@ -118,3 +118,38 @@ class Subscribe(APIView):
         subscription.threads.add(thread)
 
         return Response(status=201, data={"thread_id": thread_id})
+    
+class Unsubscribe(APIView):
+
+    def delete(self, request, thread_id :int):
+        """
+        購読するスレッドを削除する．
+        もし，サーバにトークンが登録されていなければエラーとなる．
+        もし，サーバに購読情報が登録されていなければエラーとなる．
+        もし，サーバにスレッドが登録されていなければエラーとなる．
+
+        Args:
+            thread_id (int): スレッドID
+
+        HTTP headers:
+            X-HALFBLUE-FCM-TOKEN (str): FCMトークン
+        """
+        try:
+            fcm_token = request.headers.get('X-HALFBLUE-FCM-TOKEN')
+            device = FCMDevice.objects.get(registration_id = fcm_token)
+        except FCMDevice.DoesNotExist:
+            raise NotFound()
+        
+        try:
+            thread = Thread.objects.get(thread_id = thread_id)
+        except Thread.DoesNotExist:
+            raise NotFound()
+        
+        try:
+            subscription = Subscription.objects.get(device = device)
+        except Subscription.DoesNotExist:
+            raise NotFound()
+        
+        subscription.threads.remove(thread)
+        return Response(status=200, data={"thread_id": thread_id})
+    
