@@ -4,7 +4,7 @@ from fcm_django.models import FCMDevice
 # Create your models here.
 
 class Subscription(models.Model):
-    device = models.ForeignKey(FCMDevice, on_delete=models.CASCADE, primary_key=True)
+    device = models.OneToOneField(FCMDevice, blank=False, primary_key=True, on_delete=models.CASCADE)
     threads = models.ManyToManyField('Thread', blank=True)
 
     def __str__(self):
