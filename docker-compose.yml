@@ -6,7 +6,11 @@ services:
     container_name: a_plus_tsukuba-fcm
     ports:
       - 8001:8000
-    command: python manage.py runserver 0.0.0.0:8000
+    command: >
+      /bin/sh -c '
+      (/usr/sbin/cron -f &) &&
+      python manage.py runserver 0.0.0.0:8000
+      '
     # プログラムフォルダをボリューム指定する
     ## .envファイルなどを考慮して、以下のフォルダのみを対象にする。
     volumes:

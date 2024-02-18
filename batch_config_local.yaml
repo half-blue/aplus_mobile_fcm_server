@@ -7,5 +7,5 @@ MySQL:
   Port: 3306
 
 Batch:
-  Runtime: python # or python3
+  Runtime: /usr/local/bin/python
   AbsolutePath: /aplus_mobile_fcm_server/manage.py
