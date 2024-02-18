@@ -4,6 +4,7 @@ A+つくばネイティブアプリのためのFCMサーバ（通知バックエ
 
 ## 起動方法
 A+つくばの本体のdockerを起動し後に，`docker compose up -d`で起動します．
+1分おきに更新を確認するスクリプトが自動実行されます．
 
 ## 環境構築
 `firebaseServiceAccountKey.json`を入手して，ルートにおいてください．
