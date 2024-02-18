@@ -8,8 +8,9 @@ FROM python:3.8.10-buster
 ENV PYTHONUNBUFFERED 1
 
 # MySQL Connector
-RUN apt-get update
-RUN apt-get -y install default-mysql-client
+RUN apt-get update && apt-get install -y \
+    default-mysql-client cron \
+    && rm -rf /var/lib/apt/lists/*
 
 RUN mkdir /aplus_mobile_fcm_server
 
@@ -39,5 +40,14 @@ COPY ./firebaseServiceAccountKey.json ./firebaseServiceAccountKey.json
 COPY ./manage.py ./
 COPY ./pytest.ini ./
 
+# Copy batch files
+COPY ./batch_check_update.py ./batch_check_update.py
+COPY ./batch_config_local.yaml ./batch_config.yaml
+
 # NOTICE
 # ./fcm_server and ./app are synchronized by volume configs in docker-compose.yml
+
+# CRON
+COPY ./crontab_local /etc/cron.d/crontab
+RUN chmod 0644 /etc/cron.d/crontab
+RUN /usr/bin/crontab /etc/cron.d/crontab

@@ -1,0 +1,11 @@
+MySQL:
+  # A+つくば本体のDBを参照させます
+  User: root
+  Password: rootpass
+  Host: my_sql
+  Database: vhoi5_aplus_tsukuba
+  Port: 3306
+
+Batch:
+  Runtime: /usr/local/bin/python
+  AbsolutePath: /aplus_mobile_fcm_server/manage.py
