@@ -2,6 +2,8 @@
 
 A+つくばネイティブアプリのためのFCMサーバ（通知バックエンド）
 
+https://fcm.aplus-tsukuba.net/
+
 ## 起動方法
 A+つくばの本体のdockerを起動し後に，`docker compose up -d`で起動します．
 1分おきに更新を確認するスクリプトが自動実行されます．
