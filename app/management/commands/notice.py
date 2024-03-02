@@ -18,16 +18,19 @@ class Command(BaseCommand):
         
         # 通知を送信
         for target in targets:
-            target.device.send_message(
-                Message(
-                    notification=Notification(
-                        title='A+つくばに新しい投稿があります', 
-                        body='タップして新しい投稿を確認しましょう',
-                    ),
-                    data={
-                        'thread_id': str(thread_id), # str()でキャストしないとエラーになる
-                    }
+            try:
+                target.device.send_message(
+                    Message(
+                        notification=Notification(
+                            title='A+つくばに新しい投稿があります', 
+                            body='タップして新しい投稿を確認しましょう',
+                        ),
+                        data={
+                            'thread_id': str(thread_id), # str()でキャストしないとエラーになる
+                        }
+                    )
                 )
-            )
-            
+            except Exception as e:
+                print(f'通知の送信に失敗しました: {e}')
+                continue
         return
