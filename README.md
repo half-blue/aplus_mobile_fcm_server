@@ -35,5 +35,7 @@ A+つくばに存在しないスレッドIDも登録できるので注意
 `DELETE api/thread/<thread_id>/unsubscribe` で購読解除する．デバイスレコードや購読情報レコード，指定されたスレッドが存在しない場合はエラーになるが，指定されたスレッドが存在し，かつ購読状態でない場合に購読解除してもエラーにはならない．
 
 ### 通知を送信する
-```python manage.py notice スレッドID```
+```
+python manage.py notice thread_id thread_title body type post_id reply_id
+```
 で更新通知を送ります．
