@@ -21,7 +21,7 @@ def notice_manege_endpoint(request):
     response = redirect('notice_manage_index')
     is_tls_only = not DEBUG # 本番環境のみHTTPS時のみCookieを設定する
     response.set_cookie('fcm_token', fcm_token, max_age=60*60,
-                         secure=is_tls_only, httponly=True, samesite='Strict')
+                         secure=is_tls_only, httponly=True, samesite='lax')
     return response
     
 class NoticeManegeErrorView(TemplateView):
@@ -33,6 +33,7 @@ class NoticeManegeIndexView(TemplateView):
 
     def get(self, request, *args, **kwargs):
         fcm_token = request.COOKIES.get('fcm_token')
+        print(fcm_token)
         try:
             subscription = Subscription.objects.get(device__registration_id = fcm_token)
         except Subscription.DoesNotExist:
