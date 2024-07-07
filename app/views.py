@@ -4,6 +4,7 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.http import require_POST
 from django.views.generic import TemplateView, ListView, View
 from fcm_server.settings import DEBUG
+from app.GAKUGUN_THREADS import GAKUGUN_THREADS
 
 
 # Create your views here.
@@ -91,5 +92,10 @@ class RegisteraffiliationView(TemplateView):
             return redirect('notice_manage_error')
         affiliation = int(request.POST.get('affiliation'))
         subscription.affiliation = affiliation
-        subscription.save()
+
+        if request.POST.get('is_subscribing', '0')=='1':
+            threads = GAKUGUN_THREADS[affiliation]
+            subscription.threads.add(*threads)
+
+        subscription.save()        
         return redirect('notice_manage_index')
