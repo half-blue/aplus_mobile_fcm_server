@@ -1,0 +1,28 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>学群を選択</title>
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+    </head>
+    <body>
+        <h1>学群を選択</h1>
+        <p>
+        あなたの学群を選択してください。総合学域群の方は，興味のある学群を選択してください。
+        </p>
+        <form method="post" action="{% url 'register_affiliation' %}">
+            {% csrf_token %}
+            <select name="affiliation">
+                {% for g in gakuguns %}
+                    <option value="{{ g.0 }}">{{ g.1 }}</option>
+                {% endfor %}
+            </select><br>
+            <input type="checkbox" name="is_subscribed" checked>選択したスレッドの通知を受け取る</input><br>
+            <button type="submit">登録</button>
+        <hr>
+        <div style="text-align: center;">
+            <a href="https://www.aplus-tsukuba.net/">A+つくば</a>
+        </div>
+</html>

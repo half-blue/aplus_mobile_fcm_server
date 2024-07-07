@@ -64,3 +64,32 @@ class UnsubscribeAllThreads(View):
             return redirect('notice_manage_error')
         subscription.threads.clear()
         return redirect('notice_manage_index')
+    
+class RegisteraffiliationView(TemplateView):
+    template_name = 'app/register_affiliation.html'
+    model = Subscription
+
+    def get(self, request, *args, **kwargs):
+        # tokenが不正な場合はエラーにするため
+        fcm_token = request.COOKIES.get('fcm_token')
+        try:
+            subscription = Subscription.objects.get(device__registration_id = fcm_token)
+        except Subscription.DoesNotExist:
+            return redirect('notice_manage_error')
+        return super().get(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['gakuguns'] = Subscription.GAKUGUNS[1:]
+        return context
+
+    def post(self, request, *args, **kwargs):
+        fcm_token = request.COOKIES.get('fcm_token')
+        try:
+            subscription = Subscription.objects.get(device__registration_id = fcm_token)
+        except Subscription.DoesNotExist:
+            return redirect('notice_manage_error')
+        affiliation = int(request.POST.get('affiliation'))
+        subscription.affiliation = affiliation
+        subscription.save()
+        return redirect('notice_manage_index')
