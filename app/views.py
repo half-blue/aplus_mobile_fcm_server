@@ -33,7 +33,6 @@ class NoticeManegeIndexView(TemplateView):
 
     def get(self, request, *args, **kwargs):
         fcm_token = request.COOKIES.get('fcm_token')
-        print(fcm_token)
         try:
             subscription = Subscription.objects.get(device__registration_id = fcm_token)
         except Subscription.DoesNotExist:
