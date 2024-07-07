@@ -10,15 +10,16 @@
     <body>
         <h1>通知管理</h1>
         <p>
-        あなたが購読しているスレッドIDは以下の通りです．
+        {% if gakugun != '未設定' %}
+            あなたは「{{ gakugun }}」として登録されています．
+        {% else %}
+            あなたの学群はまだ登録されていません．
+        {% endif %}
         </p>
-        <ul>
-            {% for thread in threads %}
-                <li>{{ thread }}</li>
-            {% endfor %}
-        </ul>
         <hr>
         <div style="text-align: center;">
             <a href="https://www.aplus-tsukuba.net/">A+つくば</a>
         </div>
+
+        <script src="{% static 'app/notice_manage.js' %}"></script>
 </html>
