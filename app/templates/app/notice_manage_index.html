@@ -11,10 +11,23 @@
         <h1>通知管理</h1>
         <p>
         {% if gakugun != '未設定' %}
-            あなたは「{{ gakugun }}」として登録されています．
+            あなたは「{{ gakugun }}」として登録されています。
         {% else %}
-            あなたの学群はまだ登録されていません．
+            あなたの学群はまだ登録されていません。
         {% endif %}
+        </p>
+        <ul>
+            <li><a href="#">学群を登録・変更する</a></li>
+            <li><a href="#" onclick="confirmUnsubscribeAllThreads()">すべてのスレッドで通知を解除する</a></li>
+        </ul>
+        <!-- 購読全解除用隠しform CSRF対策用 -->
+        <form id="unsubscribe-all" method="post" action="{% url 'unsubscribe_all' %}">
+            {% csrf_token %}
+            <button id="unsubscribe_btn" type="submit" style="display: none;"></button>
+        </form>
+        <!-- form 終わり -->
+        <p>
+            現在{{ num_threads }}件のスレッドで通知を受け取っています。
         </p>
         <hr>
         <div style="text-align: center;">

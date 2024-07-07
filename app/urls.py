@@ -12,4 +12,5 @@ urlpatterns = [
     path('manage/app_endpoint', views.notice_manege_endpoint, name='notice_manage_endpoint'),
     path('manage/error', views.NoticeManegeErrorView.as_view(), name='notice_manage_error'),
     path('manage/', views.NoticeManegeIndexView.as_view(), name='notice_manage_index'),
+    path('manage/unsubscribe_all', views.UnsubscribeAllThreads.as_view(), name='unsubscribe_all'),
 ]

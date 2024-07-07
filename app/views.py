@@ -1,7 +1,10 @@
 from .models import Subscription
 from django.shortcuts import render, redirect
-from django.views.generic import TemplateView, ListView
+from django.utils.decorators import method_decorator
+from django.views.decorators.http import require_POST
+from django.views.generic import TemplateView, ListView, View
 from fcm_server.settings import DEBUG
+
 
 # Create your views here.
 
@@ -48,5 +51,16 @@ class NoticeManegeIndexView(TemplateView):
         fcm_token = self.request.COOKIES.get('fcm_token')
         subscription = Subscription.objects.get(device__registration_id = fcm_token) # 存在することが保証される
         context['gakugun'] = get_gakugun_name(subscription.affiliation)
+        context["num_threads"] = subscription.threads.count()
         return context
     
+@method_decorator(require_POST, name='dispatch')
+class UnsubscribeAllThreads(View):
+    def post(self, request, *args, **kwargs):
+        fcm_token = request.COOKIES.get('fcm_token')
+        try:
+            subscription = Subscription.objects.get(device__registration_id = fcm_token)
+        except Subscription.DoesNotExist:
+            return redirect('notice_manage_error')
+        subscription.threads.clear()
+        return redirect('notice_manage_index')
