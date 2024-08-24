@@ -16,7 +16,7 @@ def notice_manege_endpoint(request):
     現在はデフォルトでアプリが必ずSubscriptionを作成するようになっているが，仕様変更に注意．
 
     管理ページとトップにリダイレクトを行う．
-    ただし、is_affliation_redirectが1の場合は所属登録ページにリダイレクトする（アプリ通知用）．
+    ただし、is_affiliation_redirectが1の場合は所属登録ページにリダイレクトする（アプリ通知用）．
     """
     fcm_token = request.GET.get('token')
     try:
