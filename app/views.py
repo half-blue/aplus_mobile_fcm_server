@@ -16,6 +16,7 @@ def notice_manege_endpoint(request):
     現在はデフォルトでアプリが必ずSubscriptionを作成するようになっているが，仕様変更に注意．
 
     管理ページとトップにリダイレクトを行う．
+    ただし、is_affliation_redirectが1の場合は所属登録ページにリダイレクトする（アプリ通知用）．
     """
     fcm_token = request.GET.get('token')
     try:
@@ -23,6 +24,8 @@ def notice_manege_endpoint(request):
     except Subscription.DoesNotExist:
         redirect('notice_manage_error')
     response = redirect('notice_manage_index')
+    if request.GET.get("is_affiliation_redirect", "0") == "1":
+        response = redirect('register_affiliation')
     is_tls_only = not DEBUG # 本番環境のみHTTPS時のみCookieを設定する
     response.set_cookie('fcm_token', fcm_token, max_age=60*60,
                          secure=is_tls_only, httponly=True, samesite='lax')
