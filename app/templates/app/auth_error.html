@@ -1,19 +1,27 @@
 {% load static %}
 
 <!DOCTYPE html>
-<html>
+<html lang="ja">
     <head>
         <meta charset="utf-8">
         <title>エラーが発生しました</title>
-        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- Bootstrap 5 CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" 
+              integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     </head>
-    <body>
-        <h1>エラーが発生しました</h1>
-        <p>
-            通知管理機能の利用にエラーが発生しました。
-            再度、A+つくばアプリのトップ画面から「通知管理」を押していただきますようお願いいたします。</p>
-        <hr>
-        <div style="text-align: center;">
-            <a href="https://www.aplus-tsukuba.net/">A+つくば</a>
+    <body class="bg-light d-flex align-items-center justify-content-center vh-100">
+        <div class="container">
+            <div class="alert alert-danger" role="alert">
+                <h1 class="alert-heading text-center">エラーが発生しました</h1>
+                <p class="mb-4">
+                    通知管理機能の利用にエラーが発生しました。再度、A+つくばアプリのトップ画面から「通知管理」を押すなどしてお試しください。
+                </p>
+                <hr>
+                <div class="text-center">
+                    <a href="https://www.aplus-tsukuba.net/" class="btn btn-primary">A+つくばに戻る</a>
+                </div>
+            </div>
         </div>
+    </body>
 </html>

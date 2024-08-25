@@ -1,28 +1,43 @@
 {% load static %}
 
 <!DOCTYPE html>
-<html>
+<html lang="ja">
     <head>
         <meta charset="utf-8">
         <title>学群を選択</title>
-        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- Bootstrap 5 CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" 
+              integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     </head>
-    <body>
-        <h1>学群を選択</h1>
-        <p>
-        あなたの学群を選択してください。総合学域群の方は，興味のある学群を選択してください。
-        </p>
-        <form method="post" action="{% url 'register_affiliation' %}">
-            {% csrf_token %}
-            <select name="affiliation">
-                {% for g in gakuguns %}
-                    <option value="{{ g.0 }}">{{ g.1 }}</option>
-                {% endfor %}
-            </select><br>
-            <input type="checkbox" name="is_subscribing" value="1" checked>選択したスレッドの通知を受け取る</input><br>
-            <button type="submit">登録</button>
-        <hr>
-        <div style="text-align: center;">
-            <a href="https://www.aplus-tsukuba.net/">A+つくば</a>
+    <body class="bg-light">
+        <div class="container mt-5">
+            <h1 class="text-center mb-4">学群を選択</h1>
+            <p class="mb-4">
+                あなたの学群を選択してください。<br>総合学域群の方は，興味のある学群を選択してください。
+            </p>
+            <form method="post" action="{% url 'register_affiliation' %}" class="mb-4">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="affiliation" class="form-label">学群を選択:</label>
+                    <select name="affiliation" id="affiliation" class="form-select">
+                        {% for g in gakuguns %}
+                            <option value="{{ g.0 }}">{{ g.1 }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-check mb-3">
+                    <input type="checkbox" name="is_subscribing" value="1" id="subscribeCheck" class="form-check-input" checked>
+                    <label class="form-check-label" for="subscribeCheck">選択したスレッドの通知を受け取る</label>
+                </div>
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary">登録</button>
+                </div>
+            </form>
+            <hr>
+            <div class="text-center mt-4">
+                <a href="https://www.aplus-tsukuba.net/" class="btn btn-secondary">A+つくば</a>
+            </div>
         </div>
+    </body>
 </html>
