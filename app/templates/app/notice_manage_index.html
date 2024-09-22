@@ -24,9 +24,10 @@
                 <li class="list-group-item">
                     <a href="{% url 'register_affiliation' %}" class="text-decoration-none">学群を登録・変更する（通知を一括で受け取る）</a>
                 </li>
-                <li class="list-group-item">
-                    <a href="#" onclick="confirmUnsubscribeAllThreads()" class="text-danger text-decoration-none">すべてのスレッドで通知を解除する</a>
-                </li>
+                <button type="button" onclick="confirmUnsubscribeAllThreads()" 
+                    class="list-group-item list-group-item-action text-danger text-decoration-none">
+                    すべてのスレッドで通知を解除する
+                </button>
             </ul>
 
             <!-- 購読全解除用隠しform CSRF対策用 -->
