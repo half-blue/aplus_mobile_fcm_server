@@ -8,15 +8,15 @@ class Subscription(models.Model):
     threads = models.ManyToManyField('Thread', blank=True)
     GAKUGUNS = (
         (0,  '未設定'),
-        (1, '人文・文化学群'),
-        (2, '社会．国際学群'),
-        (3, '人間学群'),
-        (4, '生命環境学群'),
-        (5, '理工学群'),
-        (6, '情報学群'),
-        (7, '医学群'),
-        (8, '体育専門学群'),
-        (9, '芸術専門学群'),
+        (1, '人文・文化学群(A)'),
+        (2, '社会．国際学群(B)'),
+        (3, '人間学群(C)'),
+        (4, '生命環境学群(E)'),
+        (5, '理工学群(F)'),
+        (6, '情報学群(G)'),
+        (7, '医学群(H)'),
+        (8, '体育専門学群(W)'),
+        (9, '芸術専門学群(Y)'),
     )
     affiliation = models.IntegerField(choices=GAKUGUNS, verbose_name='所属学群', default=0)
 
