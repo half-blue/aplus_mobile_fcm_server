@@ -14,7 +14,7 @@ class Command(BaseCommand):
             # 学群登録がなされていないユーザはいない（多分あり得ない）
             return
         
-        print(f"{len(targets)}人のユーザに通知を学群を尋ねる送信します。")
+        print(f"{len(targets)}人のユーザに学群を尋ねる通知を送信します。")
 
         # 通知を送信
         for target in targets:
