@@ -47,7 +47,12 @@
                 <a href="https://www.aplus-tsukuba.net/" class="btn btn-secondary">A+つくばに戻る</a>
             </div>
         </div>
-
-        <script src="{% static 'app/notice_manage.js' %}"></script>
+        <script type="text/javascript">
+            function confirmUnsubscribeAllThreads() {
+                if (confirm('すべてのスレッドの更新通知を解除します。本当によろしいですか？')) {
+                    document.getElementById('unsubscribe_btn').click();
+                }
+            }
+        </script>
     </body>
 </html>
