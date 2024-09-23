@@ -1,1 +1,2 @@
 * * * * * /usr/local/bin/python /aplus_mobile_fcm_server/batch_check_update.py >> /var/log/batch_fcm.log 2>> /var/log/batch_fcm_error.log
+0 12 * * MON /usr/local/bin/python /aplus_mobile_fcm_server/manage.py notice_register_gakugun >> /var/log/batch_gakugun.log 2>> /var/log/batch_gakugun_error.log

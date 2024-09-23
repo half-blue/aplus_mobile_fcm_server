@@ -1,0 +1,58 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <title>通知管理</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- Bootstrap 5 CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    </head>
+    <body class="bg-light">
+        <div class="container mt-5">
+            <h1 class="text-center mb-4">通知管理</h1>
+            <div class="alert alert-info" role="alert">
+                {% if gakugun != '未設定' %}
+                    あなたは「<strong>{{ gakugun }}</strong>」として登録されています。
+                {% else %}
+                    あなたの学群はまだ登録されていません。
+                {% endif %}
+            </div>
+            <ul class="list-group mb-4">
+                <li class="list-group-item">
+                    <a href="{% url 'register_affiliation' %}" class="text-decoration-none">学群を登録・変更する（通知を一括で受け取る）</a>
+                </li>
+                <button type="button" onclick="confirmUnsubscribeAllThreads()" 
+                    class="list-group-item list-group-item-action text-danger text-decoration-none">
+                    すべてのスレッドで通知を解除する
+                </button>
+            </ul>
+
+            <!-- 購読全解除用隠しform CSRF対策用 -->
+            <form id="unsubscribe-all" method="post" action="{% url 'unsubscribe_all' %}" class="d-none">
+                {% csrf_token %}
+                <button id="unsubscribe_btn" type="submit"></button>
+            </form>
+            <!-- form 終わり -->
+
+            <p class="text-center">
+                現在<strong>{{ num_threads }}</strong>件のスレッドで通知を受け取っています。
+            </p>
+            
+            <hr>
+
+            <div class="text-center mt-4">
+                <a href="https://www.aplus-tsukuba.net/" class="btn btn-secondary">A+つくばに戻る</a>
+            </div>
+        </div>
+        <script type="text/javascript">
+            function confirmUnsubscribeAllThreads() {
+                if (confirm('すべてのスレッドの更新通知を解除します。本当によろしいですか？')) {
+                    document.getElementById('unsubscribe_btn').click();
+                }
+            }
+        </script>
+    </body>
+</html>
