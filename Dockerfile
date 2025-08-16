@@ -2,7 +2,7 @@
 
 # Download python image
 # Python version is same as the production.
-FROM python:3.8.10-buster
+FROM python:3.8.20-bullseye
 
 # Cast a spell
 ENV PYTHONUNBUFFERED 1
@@ -14,13 +14,9 @@ RUN apt-get update && apt-get install -y \
 
 RUN mkdir /aplus_mobile_fcm_server
 
-# Install poerty
-ENV POETRY_HOME=/opt/poetry
-RUN curl -sSL https://install.python-poetry.org | python - && \
-    cd /usr/local/bin && \
-    ln -s /opt/poetry/bin/poetry && \
-    poetry config virtualenvs.create false
-    # venv is not used in the container
+# Install poetry
+RUN pip install poetry==1.8.2
+RUN poetry config virtualenvs.create false
 
 # Set working dir
 WORKDIR /aplus_mobile_fcm_server
